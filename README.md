@@ -1,164 +1,201 @@
-# DermalScan: AI Facial Skin Condition & Aging Detection App
+# 🧬 DermalScanAI
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?logo=tensorflow&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?logo=keras&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![EfficientNetB0](https://img.shields.io/badge/Model-EfficientNetB0-success)
+![Computer Vision](https://img.shields.io/badge/Domain-Computer%20Vision-blue)
+![Deep Learning](https://img.shields.io/badge/Deep%20Learning-Project-orange)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## Overview
-DermalScan is a deep learning–based facial skin condition analysis system that detects and classifies visible skin-related features from facial images. The application identifies and categorizes facial skin conditions into **Clear Skin**, **Dark Spots**, **Puffy Eyes**, and **Wrinkles** using a pretrained **EfficientNetB0** model.
 
-The system combines **computer vision (face detection)**, **transfer learning**, and a **Streamlit-based web interface** to deliver real-time predictions with confidence scores, annotated bounding boxes, and downloadable prediction logs.
+DermalScanAI is a deep learning-powered facial skin condition analysis system that identifies and classifies visible skin conditions from facial images. The application combines computer vision, transfer learning, and web deployment to deliver real-time predictions through an interactive Streamlit interface.
+
+The system classifies facial images into four categories:
+
+- Clear Skin
+- Dark Spots
+- Puffy Eyes
+- Wrinkles
+
+Developed using EfficientNetB0, TensorFlow, OpenCV, and Streamlit, this project demonstrates an end-to-end machine learning workflow, from data preparation and model training to deployment and inference.
 
 ---
 
-## Key Capabilities
-- Face detection using Haar Cascade classifiers
-- EfficientNetB0-based deep learning classification
-- Percentage-based prediction confidence
-- Confidence thresholding to avoid uncertain predictions
-- Annotated bounding boxes and labels
-- CSV-based prediction logging with timestamps
-- Web-based UI for easy image upload and analysis
+## Key Features
+
+- Automated face detection using OpenCV Haar Cascade Classifiers
+- Skin condition classification using EfficientNetB0
+- Transfer learning-based deep learning approach
+- Confidence-based prediction scoring
+- Real-time image analysis through Streamlit
+- Annotated image visualization
+- CSV-based prediction logging
+- Exportable prediction results
 
 ---
 
 ## Model Performance
+
 The model was trained using transfer learning with EfficientNetB0 and achieved the following results:
 
 | Metric | Value |
-|------|------|
-| Training Accuracy | **98.01%** |
-| Training Loss | **0.1708** |
-| Validation Accuracy | **100%** |
-| Validation Loss | **0.1151** |
+|----------|----------|
+| Training Accuracy | 98.01% |
+| Training Loss | 0.1708 |
+| Validation Accuracy | 100% |
+| Validation Loss | 0.1151 |
 
-> These results indicate strong generalization on the validation set, with stable convergence and low loss.
-
----
-
-## Supported Classes
-- Clear Skin  
-- Dark Spots  
-- Puffy Eyes  
-- Wrinkles  
+These results demonstrate strong classification performance and effective learning on the prepared dataset.
 
 ---
 
 ## System Workflow
-1. User uploads a facial image via the Streamlit interface  
-2. Image is resized for display and converted for processing  
-3. Haar Cascade detects facial regions  
-4. Detected face is tightly cropped to reduce background and texture bias  
-5. Face is preprocessed using **EfficientNet-specific preprocessing**  
-6. Model predicts class probabilities  
-7. Predictions below confidence threshold are marked as **Uncertain**  
-8. Results are displayed with bounding boxes and confidence scores  
-9. Prediction details are logged into a CSV file  
 
----
-
-## Face Preprocessing Strategy
-To ensure compatibility with EfficientNetB0, the following preprocessing pipeline is applied:
-
-- Resize face to **224 × 224**
-- Convert BGR → RGB
-- Apply `preprocess_input()` from EfficientNet
-- Expand dimensions for batch inference
-
-This ensures the inference pipeline exactly matches the training distribution.
-
----
-
-## Confidence Thresholding
-To improve prediction reliability, a confidence threshold is enforced:
-
-- **Threshold:** `0.60`
-- Predictions below this threshold are labeled as **Uncertain**
-- Prevents misleading classifications on low-quality or ambiguous inputs
-
----
-
-## CSV Logging
-Each prediction is automatically logged into a CSV file with:
-
-- Timestamp  
-- Image name  
-- Predicted class  
-- Confidence percentage  
-- Model accuracy reference  
-
-This enables traceability, evaluation, and result auditing.
-
----
-
-## User Interface (Streamlit)
-The web interface provides:
-
-- Image upload (JPG, PNG, JPEG, WEBP)
-- Side-by-side original and predicted image views
-- Bounding boxes with predicted labels
-- Confidence visualization for each class
-- Progress bars for probability distribution
-- Real-time feedback and error handling
-
----
-
-## Project Structure (Typical)
+```text
+Input Image
+     │
+     ▼
+Face Detection
+     │
+     ▼
+Face Cropping
+     │
+     ▼
+Image Preprocessing
+     │
+     ▼
+EfficientNetB0 Model
+     │
+     ▼
+Prediction & Confidence Score
+     │
+     ▼
+Visualization & Export
 ```
-├── app.py
-├── Dataset
-├── AI_Facial_Skin_Aging_detection.ipynb
+
+---
+
+## Dataset & Preprocessing
+
+The dataset consists of facial images categorized into four skin condition classes.
+
+### Classes
+
+- Clear Skin
+- Dark Spots
+- Puffy Eyes
+- Wrinkles
+
+### Preprocessing Pipeline
+
+- Face extraction and cropping
+- Image resizing to 224 × 224
+- Image normalization
+- Data augmentation
+- EfficientNet preprocessing
+- Dataset balancing
+
+### Augmentation Techniques
+
+- Horizontal flipping
+- Rotation
+- Scaling
+- Geometric transformations
+
+These preprocessing techniques improved model robustness and helped reduce overfitting.
+
+---
+
+## Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/devyaniraghatate/AI_DermaScan.git
+
+cd AI_DermaScan
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Application
+
+```bash
+streamlit run dermal_app.py
+```
+
+Open your browser and navigate to:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## Project Structure
+
+```text
+AI_DermaScan/
+│
+├── dermal_app.py
+├── best_dermal_model.h5
+├── AI_Facial_Skin_Aging_Detection.ipynb
 ├── haarcascade_frontalface_default.xml
-├── predictions_log.csv
 ├── requirements.txt
-└── README.md
+├── predictions_log.csv
+├── README.md
+│
+├── logs/
+└── exports/
 ```
 
-
 ---
 
-## Tech Stack
+## Results
 
-### Model & ML
-- TensorFlow
-- Keras
-- EfficientNetB0
+The application provides:
 
-### Computer Vision
-- OpenCV
-- Haar Cascade Classifier
-- NumPy
+- Skin condition prediction
+- Confidence score for each prediction
+- Probability distribution across all classes
+- Annotated facial image output
+- CSV prediction reports
+- Historical prediction logs
 
-### Frontend
-- Streamlit
-- HTML (via Streamlit Markdown)
-
-### Data Handling
-- Pandas
-- CSV logging
-
----
-
-## Evaluation Highlights
-- Accurate face localization
-- High-confidence classification
-- Low inference latency (≤ 5 seconds per image)
-- Robust preprocessing aligned with training
-- Reliable logging and export functionality
-
----
-
-## Limitations
-- Performance depends on face visibility and lighting
-- Haar Cascade may fail on extreme poses or occlusions
-- High validation accuracy may indicate dataset simplicity or limited diversity
+The complete workflow enables users to upload an image, receive model predictions, and export the results for further analysis.
 
 ---
 
 ## Future Improvements
-- Replace Haar Cascade with deep face detectors (e.g., RetinaFace, MTCNN)
-- Add multi-face support with independent logging
-- Improve dataset diversity for better generalization
-- Deploy using Docker or cloud-based inference
-- Add Grad-CAM for explainable predictions
+
+- Integrate RetinaFace or MTCNN for improved face detection
+- Expand dataset diversity for better generalization
+- Add explainable AI techniques such as Grad-CAM
+- Support real-time webcam-based analysis
+- Deploy using Docker and cloud services
+- Extend support for additional skin condition categories
 
 ---
 
-## Conclusion
-DermalScan demonstrates a complete end-to-end AI pipeline for facial skin condition analysis, integrating deep learning, computer vision, and web deployment. The project emphasizes **correct preprocessing**, **confidence-aware predictions**, and **practical usability**, making it suitable for academic evaluation, internships, and real-world experimentation.
+## Author
+
+**Devyani Raghatate**  
+B.Tech Artificial Intelligence Engineering
+
+🔗 GitHub: https://github.com/devyaniraghatate
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+⭐ If you found this project useful, consider giving it a star.
